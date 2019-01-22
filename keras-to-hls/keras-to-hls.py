@@ -61,9 +61,6 @@ def main():
     if not os.path.isabs(yamlConfig['KerasJson']):
         yamlConfig['KerasJson'] = os.path.join(configDir, yamlConfig['KerasJson'])
 
-    if not (yamlConfig["IOType"] == "io_parallel" or yamlConfig["IOType"] == "io_serial"): 
-        raise Exception('ERROR: Invalid IO type')
-
     ######################
     ##  Do translation
     ######################
@@ -188,7 +185,7 @@ def main():
             # if this layer is too big (more than MAXMULT multiplications); 
             # break it out into chunks!
             layer['n_subout']=[weights.shape[1]]
-            if layer['n_in']*layer['n_out']>MAXMULT and yamlConfig["IOType"] != "io_serial":
+            if layer['n_in']*layer['n_out']>MAXMULT:
                 n_subout = int(MAXMULT/layer['n_in'])
                 n_totout = 0
                 layer['n_subout'] = []
