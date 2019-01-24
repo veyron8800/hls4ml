@@ -4,8 +4,8 @@
 array set opt {
   csim   1
   synth  1
-  cosim  1
-  export 1
+  cosim  0
+  export 0
 }
 
 foreach arg $::argv {
@@ -27,7 +27,7 @@ set_top myproject
 add_files firmware/myproject.cpp -cflags "-I[file normalize nnet_utils] -std=c++0x"
 add_files -tb myproject_test.cpp -cflags "-I[file normalize nnet_utils] -std=c++0x"
 add_files -tb firmware/weights
-#add_files -tb tb_data
+add_files -tb tb_data
 open_solution -reset "solution1"
 catch {config_array_partition -maximum_size 4096}
 set_part {xc7vx690tffg1927-2}
