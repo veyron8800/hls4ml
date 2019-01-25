@@ -63,4 +63,6 @@ if {$opt(synth)} {
   }
 }
 
+file delete -force myproject_prj/solution1/.autopilot
+
 exit
