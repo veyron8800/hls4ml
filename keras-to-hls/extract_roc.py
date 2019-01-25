@@ -40,6 +40,7 @@ def extract_roc(yamlConfig):
     truth_df = truth_df[:output_df.shape[0],:]
 
     for i in range(Noutputs):
+        plt.clf()
 
         ## Expected AUC from keras
         efpr, etpr, ethreshold = roc_curve(truth_df[:,i],predict_df[:,i])
@@ -51,7 +52,7 @@ def extract_roc(yamlConfig):
         dauc = auc(dfpr, dtpr)
         plt.plot(dtpr,dfpr,label='HLS auc = %.1f%%'%(dauc * 100))
         
-        plt.plot([], [], ' ', label="Ratio = {:f}".format(eauc / dauc))
+        plt.plot([], [], ' ', label="Ratio = {:.2f}".format(dauc / eauc))
 
         plt.semilogy()
         plt.legend(loc='upper left')
