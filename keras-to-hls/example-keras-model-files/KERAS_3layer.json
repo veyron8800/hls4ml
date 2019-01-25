@@ -53,7 +53,7 @@
                     "kernel_regularizer": {
                         "class_name": "L1L2",
                         "config": {
-                            "l1": 0.0,
+                            "l1": 9.999999747378752e-05,
                             "l2": 0.0
                         }
                     },
@@ -103,7 +103,7 @@
                     "kernel_regularizer": {
                         "class_name": "L1L2",
                         "config": {
-                            "l1": 0.0,
+                            "l1": 9.999999747378752e-05,
                             "l2": 0.0
                         }
                     },
@@ -153,7 +153,7 @@
                     "kernel_regularizer": {
                         "class_name": "L1L2",
                         "config": {
-                            "l1": 0.0,
+                            "l1": 9.999999747378752e-05,
                             "l2": 0.0
                         }
                     },
@@ -203,7 +203,7 @@
                     "kernel_regularizer": {
                         "class_name": "L1L2",
                         "config": {
-                            "l1": 0.0,
+                            "l1": 9.999999747378752e-05,
                             "l2": 0.0
                         }
                     },
