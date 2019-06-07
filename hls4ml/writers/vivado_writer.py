@@ -8,15 +8,6 @@ import re
 from collections import OrderedDict
 
 #######################################
-## Config module
-#######################################
-def parse_config(config_file) :
-
-    print("Loading configuration from", config_file)
-    config = open(config_file, 'r')
-    return yaml.load(config)
-
-#######################################
 ## Print weight array to C++
 #######################################
 def print_array_to_cpp(var, odir):

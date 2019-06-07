@@ -14,10 +14,8 @@ from onnx import optimizer, helper, numpy_helper, shape_inference
 
 MAXMULT = 4096
 
-filedir = os.path.dirname(os.path.abspath(__file__))
-sys.path.insert(0,os.path.join(filedir, "..", "hls-writer"))
-from hls_writer import parse_config, write_hls
-from hls_model import HLSModel
+from hls4ml.writers.vivado_writer import write_hls
+from hls4ml.model import HLSModel
 
 class ONNXDataReader:
     def __init__(self, model):
@@ -129,21 +127,14 @@ def compute_pads_2d(operation, layer):
 ############################################################################################
 ## M A I N
 ############################################################################################
-def main():
+def onnx_to_hls(yamlConfig):
 
-    # Parse command line arguments
-    parser = argparse.ArgumentParser(description='')
-    parser.add_argument("-c", action='store', dest='config',
-                        help="Configuration file.")
-    args = parser.parse_args()
-    if not args.config: parser.error('A configuration file needs to be specified.')
-
-    configDir  = os.path.abspath(os.path.dirname(args.config))
-    yamlConfig = parse_config(args.config)
-    if not os.path.isabs(yamlConfig['OutputDir']):
-        yamlConfig['OutputDir'] = os.path.join(configDir, yamlConfig['OutputDir'])
-    if not os.path.isabs(yamlConfig['OnnxModel']):
-        yamlConfig['OnnxModel'] = os.path.join(configDir, yamlConfig['OnnxModel'])
+    #configDir  = os.path.abspath(os.path.dirname(args.config))
+    #yamlConfig = parse_config(args.config)
+    #if not os.path.isabs(yamlConfig['OutputDir']):
+    #    yamlConfig['OutputDir'] = os.path.join(configDir, yamlConfig['OutputDir'])
+    #if not os.path.isabs(yamlConfig['OnnxModel']):
+    #    yamlConfig['OnnxModel'] = os.path.join(configDir, yamlConfig['OnnxModel'])
 
     if not (yamlConfig["IOType"] == "io_parallel" or yamlConfig["IOType"] == "io_serial"): 
         raise Exception('ERROR: Invalid IO type')
@@ -404,6 +395,3 @@ def main():
 
     hls_model = HLSModel(yamlConfig, reader, layer_list, input_layers, output_layers)
     write_hls(hls_model)
-
-if __name__ == "__main__":
-    main()

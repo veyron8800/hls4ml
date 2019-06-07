@@ -2,10 +2,9 @@ from __future__ import print_function
 import six
 import re
 import numpy as np
-from enum import Enum
 from collections import OrderedDict
 
-from templates import get_config_template, get_function_template
+from .templates import get_config_template, get_function_template
 
 class HLSConfig(object):
     def __init__(self, config):

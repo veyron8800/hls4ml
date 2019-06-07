@@ -12,28 +12,19 @@ import pickle
 import re
 from shutil import copyfile
 
-filedir = os.path.dirname(os.path.abspath(__file__))
-sys.path.insert(0,os.path.join(filedir, "..", "hls-writer"))
-from hls_writer import parse_config, print_array_to_cpp, hls_writer
+from hls4ml.writers.vivado_writer import write_hls
+from hls4ml.model import HLSModel
 
 ############################################################################################
 ## M A I N
 ############################################################################################
-def main():
-
-    # Parse command line arguments
-    parser = argparse.ArgumentParser(description='')
-    parser.add_argument("-c", action='store', dest='config', default="pytorch-config.yml",
-                        help="Configuration file.")
-    args = parser.parse_args()
-    if not args.config: parser.error('A configuration file needs to be specified.')
-
-    configDir  = os.path.abspath(os.path.dirname(args.config))
-    yamlConfig = parse_config(args.config)
-    if not os.path.isabs(yamlConfig['OutputDir']):
-        yamlConfig['OutputDir'] = os.path.join(configDir, yamlConfig['OutputDir'])
-    if not os.path.isabs(yamlConfig['PytorchModel']):
-        yamlConfig['PytorchModel'] = os.path.join(configDir, yamlConfig['PytorchModel'])
+def pytorch_to_hls(yamlConfig):
+    #configDir  = os.path.abspath(os.path.dirname(args.config))
+    #yamlConfig = parse_config(args.config)
+    #if not os.path.isabs(yamlConfig['OutputDir']):
+    #    yamlConfig['OutputDir'] = os.path.join(configDir, yamlConfig['OutputDir'])
+    #if not os.path.isabs(yamlConfig['PytorchModel']):
+    #    yamlConfig['PytorchModel'] = os.path.join(configDir, yamlConfig['PytorchModel'])
 
     if not (yamlConfig["IOType"] == "io_parallel" or yamlConfig["IOType"] == "io_serial"):
         raise Exception('ERROR: Invalid IO type')
