@@ -55,7 +55,7 @@ def write_project_cpp(model):
     ###################
 
     filedir = os.path.dirname(os.path.abspath(__file__))
-    f = open(os.path.join(filedir,'../hls-template/firmware/myproject.cpp'),'r')
+    f = open(os.path.join(filedir,'../hls-templates/vivado/firmware/myproject.cpp'),'r')
     fout = open('{}/firmware/{}.cpp'.format(model.config.get_output_dir(), model.config.get_project_name()),'w')
 
     model_inputs = model.get_input_variables()
@@ -136,7 +136,7 @@ def write_project_header(model):
     #######################
 
     filedir = os.path.dirname(os.path.abspath(__file__))
-    f = open(os.path.join(filedir,'../hls-template/firmware/myproject.h'),'r')
+    f = open(os.path.join(filedir,'../hls-templates/vivado/firmware/myproject.h'),'r')
     fout = open('{}/firmware/{}.h'.format(model.config.get_output_dir(), model.config.get_project_name()),'w')
 
     model_inputs = model.get_input_variables()
@@ -170,7 +170,7 @@ def write_project_header(model):
 
 def write_parameters(model):
     filedir = os.path.dirname(os.path.abspath(__file__))
-    f = open(os.path.join(filedir,'../hls-template/firmware/parameters.h'),'r')
+    f = open(os.path.join(filedir,'../hls-templates/vivado/firmware/parameters.h'),'r')
     fout = open('{}/firmware/parameters.h'.format(model.config.get_output_dir()),'w')
 
     for line in f.readlines():
@@ -213,7 +213,7 @@ def write_test_bench(model):
     ###################
 
     filedir = os.path.dirname(os.path.abspath(__file__))
-    f = open(os.path.join(filedir,'../hls-template/myproject_test.cpp'),'r')
+    f = open(os.path.join(filedir,'../hls-templates/vivado/myproject_test.cpp'),'r')
     fout = open('{}/{}_test.cpp'.format(model.config.get_output_dir(), model.config.get_project_name()),'w')
 
     for line in f.readlines():
@@ -262,10 +262,10 @@ def write_build_script(model):
     ###################
 
     filedir = os.path.dirname(os.path.abspath(__file__))
-    nnetdir = os.path.abspath(os.path.join(filedir, "../nnet_utils"))
+    nnetdir = os.path.abspath(os.path.join(filedir, "../hls-templates/vivado/nnet_utils"))
     relpath = os.path.relpath(nnetdir, start=model.config.get_output_dir())
 
-    f = open(os.path.join(filedir,'../hls-template/build_prj.tcl'),'r')
+    f = open(os.path.join(filedir,'../hls-templates/vivado/build_prj.tcl'),'r')
     fout = open('{}/build_prj.tcl'.format(model.config.get_output_dir()),'w')
 
     for line in f.readlines():

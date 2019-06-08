@@ -52,11 +52,11 @@ def config(args):
 def convert(args):
     yamlConfig = parse_config(args.config)
     if 'OnnxModel' in yamlConfig:
-        hls4ml.converters.onnx_to_hls(yamlConfig)
+        hls4ml.converters.onnx_to_hls.onnx_to_hls(yamlConfig)
     elif 'PytorchModel' in yamlConfig:
-        hls4ml.converters.pytorch_to_hls(yamlConfig)
+        hls4ml.converters.pytorch_to_hls.pytorch_to_hls(yamlConfig)
     else:
-        hls4ml.converters.keras_to_hls(yamlConfig)
+        hls4ml.converters.keras_to_hls.keras_to_hls(yamlConfig)
 
 def build(args):
     if args.project is None:
