@@ -11,7 +11,7 @@ For more information visit the webpage:
 https://hls-fpga-machine-learning.github.io/hls4ml/
 '''
 
-setup(name='HLS4ML',
+setup(name='hls4ml',
       version='0.2.0',
       description='Machine learning in FPGAs using HLS',
       long_description=long_description,

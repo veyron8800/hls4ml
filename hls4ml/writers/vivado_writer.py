@@ -5,6 +5,7 @@ from shutil import copyfile
 import numpy as np
 import os
 import re
+import glob
 from collections import OrderedDict
 
 #######################################
@@ -282,6 +283,24 @@ def write_build_script(model):
     f.close()
     fout.close()
 
+def write_nnet_utils(model):
+    ###################
+    ## nnet_utils
+    ###################
+
+    filedir = os.path.dirname(os.path.abspath(__file__))
+    
+    srcpath = os.path.join(filedir,'../hls-templates/vivado/nnet_utils/')
+    dstpath = '{}/firmware/nnet_utils/'.format(model.config.get_output_dir())
+    
+    if not os.path.exists(dstpath):
+        os.mkdir(dstpath)
+
+    headers = [os.path.basename(h) for h in glob.glob(srcpath + '*.h')]
+
+    for h in headers:
+        copyfile(srcpath + h, dstpath + h)
+
 def write_tar(model):
     ###################
     # Tarball output
@@ -297,4 +316,5 @@ def write_hls(model):
     write_parameters(model)
     write_test_bench(model)
     write_build_script(model)
+    write_nnet_utils(model)
     write_tar(model)

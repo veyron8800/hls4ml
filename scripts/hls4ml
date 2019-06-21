@@ -52,11 +52,11 @@ def config(args):
 def convert(args):
     yamlConfig = parse_config(args.config)
     if 'OnnxModel' in yamlConfig:
-        hls4ml.converters.onnx_to_hls.onnx_to_hls(yamlConfig)
+        hls4ml.converters.onnx_to_hls(yamlConfig)
     elif 'PytorchModel' in yamlConfig:
-        hls4ml.converters.pytorch_to_hls.pytorch_to_hls(yamlConfig)
+        hls4ml.converters.pytorch_to_hls(yamlConfig)
     else:
-        hls4ml.converters.keras_to_hls.keras_to_hls(yamlConfig)
+        hls4ml.converters.keras_to_hls(yamlConfig)
 
 def build(args):
     if args.project is None:
@@ -74,6 +74,13 @@ def build(args):
         synth = export = 1
     if args.all:
         csim = synth = cosim = export = 1
+    
+    # Check if vivado_hls is available
+    if 'linux' in sys.platform or 'darwin' in sys.platform:
+        found = os.system('command -v vivado_hls > /dev/null')
+        if found is not 0:
+            print('Vivado HLS installation not found. Make sure "vivado_hls" is on PATH.')
+            sys.exit(1)
     
     os.system('cd {dir} && vivado_hls -f build_prj.tcl "csim={csim} synth={synth} cosim={cosim} export={export}"'.format(dir=args.project, csim=csim, synth=synth, cosim=cosim, export=export))
 
