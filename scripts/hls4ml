@@ -12,7 +12,7 @@ import hls4ml
 def parse_config(config_file):
     print("Loading configuration from", config_file)
     config = open(config_file, 'r')
-    return yaml.load(config)
+    return yaml.load(config, Loader=yaml.SafeLoader)
 
 def main():
     parser = argparse.ArgumentParser(description='HLS4ML - Machine learning inference in FPGAs')
