@@ -115,7 +115,7 @@ class VivadoWriter(Writer):
 
         if mode in ['partition', 'reshape']:
             if typ == 'complete':
-                template = '#pragma HLS ARRAY_{mode} variable={name} {type} dim={dim}'
+                template = '//#pragma HLS ARRAY_{mode} variable={name} {type} dim={dim}'
             else:
                 template = '#pragma HLS ARRAY_{mode} variable={name} {type} factor={factor} dim={dim}'
 
@@ -427,11 +427,11 @@ class VivadoWriter(Writer):
             elif '//hls-fpga-machine-learning insert tb-output' in line:
                 newline = line
                 for out in model.get_output_variables():
-                    newline += indent + '//nnet::print_result<{}, {}>({}, fout);\n'.format(out.type.name, out.size_cpp(), out.cppname) #TODO enable this
+                    newline += indent + 'nnet::print_result<{}, {}>({}, fout);\n'.format(out.type.name, out.size_cpp(), out.cppname) #TODO enable this
             elif '//hls-fpga-machine-learning insert output' in line or '//hls-fpga-machine-learning insert quantized' in line:
                 newline = line
                 for out in model.get_output_variables():
-                    newline += indent + 'nnet::print_result<{}, {}>({}, std::cout);\n'.format(out.type.name, out.size_cpp(), out.cppname)
+                    newline += indent + '//nnet::print_result<{}, {}>({}, std::cout);\n'.format(out.type.name, out.size_cpp(), out.cppname)
             else:
                 newline = line
             fout.write(newline)
